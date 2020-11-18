@@ -1,7 +1,7 @@
 public class StateCensusException extends Exception {
 
     enum exceptionType {
-        FILE_NOT_FOUND, INCORRECT_FILE_TYPE, HEADER_EXCEPTION
+        FILE_NOT_FOUND, INCORRECT_FILE_TYPE, HEADER_EXCEPTION, DELIMITER_EXCEPTION
     }
 
     exceptionType type;

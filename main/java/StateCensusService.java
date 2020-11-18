@@ -1,9 +1,6 @@
 import com.opencsv.CSVReader;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class StateCensusService {
 
@@ -28,6 +25,16 @@ public class StateCensusService {
         }
     }
 
+    public CSVReader readCSVFile(String fileLocation) throws StateCensusException {
+        try {
+            CSVReader reader = new CSVReader(new FileReader(fileLocation));
+            return reader;
+        }catch (IOException e){
+            throw new StateCensusException(StateCensusException.exceptionType.DELIMITER_EXCEPTION, "Wrong delimiter");
+        }
+
+    }
+
     public <E>int countNumberOfRows(String fileLocation) throws StateCensusException {
 
         Integer numRows = -1;
@@ -36,19 +43,18 @@ public class StateCensusService {
 
         isFileFound(fileLocation);
 
-        try {
-            CSVReader reader = new CSVReader(new FileReader(fileLocation));
+        CSVReader read = readCSVFile(fileLocation);
 
-            while ( reader.readNext() != null) {
+        try {
+            while (read.readNext() != null) {
                 numRows++;
             }
 
-                reader.close();
         }
         catch (RuntimeException e) {
             throw new StateCensusException(StateCensusException.exceptionType.HEADER_EXCEPTION, "Error in Header");
         }
-        catch (IOException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
 
