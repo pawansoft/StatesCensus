@@ -10,7 +10,7 @@ public class StateCensusTest {
     public String INVALID_FILE_TYPE= "/home/pawan/Desktop/PlayGround/abc/IndiaStateCensusData .txt";
 
     @Test
-    public void ProvideFileLocation_WhenRecordFound_TestCaseShouldPass() throws IOException, StateCensusException {
+    public void ProvideFileLocation_WhenRecordFound_TestCaseShouldPass() throws IOException, StateCensusException, CSVBuilderException {
         StateCensusService stateCensusService = new StateCensusService();
         int numberOfRecord = stateCensusService.fetchStateCensusDetail(INDIA_STATE_CENSUS_DATA);
         System.out.println(numberOfRecord);
@@ -18,7 +18,7 @@ public class StateCensusTest {
     }
 
     @Test
-    public void ProvideFileLocation_WhenNotMatched_ShouldReturnCustomException() throws IOException {
+    public void ProvideFileLocation_WhenNotMatched_ShouldReturnCustomException() throws IOException, CSVBuilderException {
         try {
             StateCensusService stateCensusService = new StateCensusService();
             stateCensusService.fetchStateCodeFileDetail(INVALID_FILE_TYPE);
@@ -29,7 +29,7 @@ public class StateCensusTest {
         }
     }
     @Test
-    public void ProvideFileLocation_WhenDelimiterIssue_ShouldRetunCustomException() {
+    public void ProvideFileLocation_WhenDelimiterIssue_ShouldRetunCustomException() throws CSVBuilderException {
         StateCensusService stateCensusService = new StateCensusService();
         try {
             stateCensusService.fetchStateCensusDetail(INDIA_STATE_CODE);
@@ -40,7 +40,7 @@ public class StateCensusTest {
     }
 
     @Test
-    public void ProvideFileLocation_WhenFileNotFound_ShouldReturnCustomException() throws StateCensusException {
+    public void ProvideFileLocation_WhenFileNotFound_ShouldReturnCustomException() throws StateCensusException, CSVBuilderException {
         try {
             StateCensusService stateCensusService = new StateCensusService();
             stateCensusService.fetchStateCensusDetail(FILE_NOT_FOUND);
@@ -52,7 +52,7 @@ public class StateCensusTest {
     }
 
     @Test
-    public void ProvideFileLocation_WhenFoundErrorInHeader_ShouldThrowException() throws StateCensusException {
+    public void ProvideFileLocation_WhenFoundErrorInHeader_ShouldThrowException() throws StateCensusException, CSVBuilderException {
         try {
             StateCensusService stateCensusService = new StateCensusService();
             stateCensusService.fetchStateCensusDetail(INDIA_STATE_CODE);
@@ -63,7 +63,7 @@ public class StateCensusTest {
     }
 
     @Test
-    public void ProvideStateCodeCSV_WhenRecordMatches_TestCaseShouldPass(){
+    public void ProvideStateCodeCSV_WhenRecordMatches_TestCaseShouldPass() throws CSVBuilderException {
         try {
             StateCensusService stateCensusService = new StateCensusService();
             int count = stateCensusService.fetchStateCodeFileDetail(INDIA_STATE_CODE);
@@ -74,7 +74,7 @@ public class StateCensusTest {
     }
 
     @Test
-    public void ProvideStateCodeCSV_WhenRecordExtensionNotCSV_TestCaseShouldPass(){
+    public void ProvideStateCodeCSV_WhenRecordExtensionNotCSV_TestCaseShouldPass() throws CSVBuilderException {
         try {
             StateCensusService stateCensusService = new StateCensusService();
             int count = stateCensusService.fetchStateCodeFileDetail(INVALID_FILE_TYPE);
@@ -84,7 +84,7 @@ public class StateCensusTest {
     }
 
     @Test
-    public void ProvideStateCodeCSV_WhenFileNotFound_TestCaseShouldPass(){
+    public void ProvideStateCodeCSV_WhenFileNotFound_TestCaseShouldPass() throws CSVBuilderException {
         try {
             StateCensusService stateCensusService = new StateCensusService();
             int count = stateCensusService.fetchStateCodeFileDetail(FILE_NOT_FOUND);
@@ -94,7 +94,7 @@ public class StateCensusTest {
     }
 
     @Test
-    public void ProvideStateCodeCSV_WhenFileHeaderNotMatched_TestCaseShouldPass(){
+    public void ProvideStateCodeCSV_WhenFileHeaderNotMatched_TestCaseShouldPass() throws CSVBuilderException {
         try {
             StateCensusService stateCensusService = new StateCensusService();
             int count = stateCensusService.fetchStateCodeFileDetail(INDIA_STATE_CENSUS_DATA);
@@ -104,7 +104,7 @@ public class StateCensusTest {
     }
 
     @Test
-    public void ProvideFileLocation_WhenDelimiterIssueInStateCode_ShouldReturnCustomException() {
+    public void ProvideFileLocation_WhenDelimiterIssueInStateCode_ShouldReturnCustomException() throws CSVBuilderException {
         StateCensusService stateCensusService = new StateCensusService();
         try {
             stateCensusService.fetchStateCensusDetail(INDIA_STATE_CENSUS_DATA);

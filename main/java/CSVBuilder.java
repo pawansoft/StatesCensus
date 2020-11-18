@@ -13,7 +13,6 @@ public class CSVBuilder<K> implements ICSVBuilder{
                     .withType(csvClass)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
-
             return csvToBean.iterator();
         }
         catch (RuntimeException e){

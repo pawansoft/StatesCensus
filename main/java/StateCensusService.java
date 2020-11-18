@@ -16,7 +16,7 @@ public class StateCensusService {
         return numDetails;
     }
 
-    public int fetchStateCodeFileDetail(String fileLocation) throws StateCensusException {
+    public int fetchStateCodeFileDetail(String fileLocation) throws StateCensusException, CSVBuilderException {
         CheckFileExtension.checkFileExtension(fileLocation);
 
         FileAvailabilityCheckService.isFileFound(fileLocation);
@@ -30,7 +30,7 @@ public class StateCensusService {
         return getRowCount(iterator);
     }
 
-    public int fetchStateCensusDetail(String fileLocation) throws StateCensusException {
+    public int fetchStateCensusDetail(String fileLocation) throws StateCensusException, CSVBuilderException {
         CheckFileExtension.checkFileExtension(fileLocation);
 
         FileAvailabilityCheckService.isFileFound(fileLocation);
