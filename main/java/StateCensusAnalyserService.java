@@ -1,20 +1,8 @@
 import java.io.Reader;
 import java.util.Iterator;
+import java.util.List;
 
 public class StateCensusAnalyserService {
-
-    public static <K> int getRowCount(Iterator<K> iterator) throws StateCensusException {
-        int numDetails = 0;
-        try{
-            while (iterator.hasNext()){
-                numDetails++;
-                iterator.next();
-            }
-        }catch (RuntimeException e){
-            throw new StateCensusException(StateCensusException.exceptionType.DELIMITER_EXCEPTION, "Wrong delimiter");
-        }
-        return numDetails;
-    }
 
     public int fetchStateCodeFileDetail(String fileLocation) throws StateCensusException, CSVBuilderException {
         CheckFileExtension.checkFileExtension(fileLocation);
@@ -25,9 +13,9 @@ public class StateCensusAnalyserService {
 
         ICSVBuilder csvBuilder = CSVBuilderFactory.createBuilder();
 
-        Iterator<IndianStateCode> iterator = csvBuilder.fetchCsvFileIterator(reader, IndianStateCode.class);
+        List<IndianStateCode> stateCodeList = csvBuilder.getFileDataInToList(reader, IndianStateCode.class);
 
-        return getRowCount(iterator);
+        return stateCodeList.size();
     }
 
     public int fetchStateCensusDetail(String fileLocation) throws StateCensusException, CSVBuilderException {
@@ -39,9 +27,9 @@ public class StateCensusAnalyserService {
 
         ICSVBuilder csvBuilder = CSVBuilderFactory.createBuilder();
 
-        Iterator<IndianStateCode> iterator = csvBuilder.fetchCsvFileIterator(reader, StateCensus.class);
+        List<StateCensus> stateCensusList = csvBuilder.getFileDataInToList(reader, StateCensus.class);
 
-        return getRowCount(iterator);
+        return stateCensusList.size();
     }
 
 }
