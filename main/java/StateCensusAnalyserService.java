@@ -50,4 +50,14 @@ public class StateCensusAnalyserService {
     JsonWriterHelper.writeListToJSON(sortedStateCensusData);
     return sortedStateCensusData;
     }
+
+    public String shortByArea() throws StateCensusException {
+        CheckEmptyListHelper.isListEmpty(stateCensusContainer);
+        stateCensusContainer = stateCensusContainer.stream()
+                .sorted((detail1, detail2) -> detail2.getAreaInSqKm().compareTo(detail1.getAreaInSqKm()))
+                .collect(Collectors.toList());
+        String shortedByArea = new Gson().toJson(stateCensusContainer);
+        JsonWriterHelper.writeListToJSON(shortedByArea);
+        return shortedByArea;
+    }
 }
