@@ -1,3 +1,4 @@
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -112,6 +113,21 @@ public class StateCensusTest {
         }
         catch (StateCensusException e) {
             Assert.assertEquals(StateCensusException.exceptionType.DELIMITER_EXCEPTION, e.type);
+        }
+    }
+
+    @Test
+    public void ProvideCSVFile_WhenShortedAccordingToPopulation_TestCaseShouldPass(){
+        try {
+                StateCensusAnalyserService stateCensusAnalyserService = new StateCensusAnalyserService();
+                stateCensusAnalyserService.fetchStateCensusDetail(INDIA_STATE_CENSUS_DATA);
+                String shortedDetail = stateCensusAnalyserService.shortByPopulation();
+                StateCensus[] stateCensuses = new Gson().fromJson(shortedDetail, StateCensus[].class);
+                Assert.assertEquals("West Bengal", stateCensuses[0].getState());
+            Assert.assertEquals("Uttarakhand", stateCensuses[28].getState());
+        }
+        catch (StateCensusException | CSVBuilderException e){
+
         }
     }
 
